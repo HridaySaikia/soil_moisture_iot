@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/db";
 
@@ -21,9 +23,14 @@ export async function GET(req: Request) {
       .limit(limit)
       .toArray();
 
-    return NextResponse.json({
-      history: history.reverse(),
-    });
+    return NextResponse.json(
+      { history: history.reverse() },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("HISTORY API ERROR FULL:", error);
     return NextResponse.json(
