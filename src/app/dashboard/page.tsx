@@ -29,59 +29,62 @@ export default function DashboardPage() {
   const [range, setRange] = useState("1h");
 
   useEffect(() => {
-    let alive = true;
+  let alive = true;
 
-    async function load() {
-      const [latestRes, histRes] = await Promise.all([
-        fetch(`/api/moisture/latest?deviceId=${deviceId}`, { cache: "no-store" }),
-        fetch(`/api/moisture/history?deviceId=${deviceId}&limit=120`, { cache: "no-store" }),
-      ]);
+  async function load() {
+    const [latestRes, histRes] = await Promise.all([
+      fetch(`/api/moisture/latest?deviceId=${deviceId}`, { cache: "no-store" }),
+      fetch(`/api/moisture/history?deviceId=${deviceId}&limit=120`, { cache: "no-store" }),
+    ]);
 
-      let latestJson = { latest: null };
-      let histJson = { history: [] };
+    let latestJson = { latest: null };
+    let histJson = { history: [] };
 
-      if (latestRes.ok) {
-        latestJson = await latestRes.json();
-      } else {
-        console.error("Latest API failed:", await latestRes.text());
-      }
-
-      if (histRes.ok) {
-        histJson = await histRes.json();
-      } else {
-        console.error("History API failed:", await histRes.text());
-      }
-
-      if (!alive) return;
-
-      setLatest(latestJson.latest ?? null);
-      setHistory(histJson.history ?? []);
+    if (latestRes.ok) {
+      latestJson = await latestRes.json();
+    } else {
+      console.error("Latest API failed:", await latestRes.text());
     }
 
-    load();
-    // const t = setInterval(load, 2000);
+    if (histRes.ok) {
+      histJson = await histRes.json();
+    } else {
+      console.error("History API failed:", await histRes.text());
+    }
 
-    return () => {
-      alive = false;
-      // clearInterval(t);
-    };
-  }, [deviceId]);
+    if (!alive) return;
 
-  const moisturePct = latest?.moisturePct ?? 0;
+    setLatest(latestJson.latest ?? null);
+    setHistory(histJson.history ?? []);
+  }
+
+  load();
+  const t = setInterval(load, 5000);
+
+  return () => {
+    alive = false;
+    clearInterval(t);
+  };
+}, [deviceId]);
+
+  const latestReading =
+  latest ?? (history.length > 0 ? history[history.length - 1] : null);
+
+  const moisturePct = latestReading?.moisturePct ?? 0;
 
   const previousMoisture = history.length >= 2 ? history[history.length - 2].moisturePct : null;
 
   const isDryAlert =
-    latest?.moisturePct !== undefined &&
-    latest.moisturePct < threshold;
+  latestReading?.moisturePct !== undefined &&
+  latestReading.moisturePct < threshold;
 
-  const lastUpdated = latest?.createdAt
-    ? new Date(latest.createdAt).toLocaleString()
-    : "No data yet";
+  const lastUpdated = latestReading?.createdAt
+  ? new Date(latestReading.createdAt).toLocaleString()
+  : "No data yet";
 
-  const online = latest?.createdAt
-    ? Date.now() - new Date(latest.createdAt).getTime() < 60000
-    : false;
+  const online = latestReading?.createdAt
+  ? Date.now() - new Date(latestReading.createdAt).getTime() < 60000
+  : false;
 
   const chartData = useMemo(() => {
     return history.map((r) => ({
@@ -171,7 +174,7 @@ export default function DashboardPage() {
               boxShadow: "var(--shadow-soft)",
             }}
           >
-            ⚠️ Alert: Soil is dry ({latest?.moisturePct}%). Consider watering the plant.
+            ⚠️ Alert: Soil is dry ({latestReading?.moisturePct}%). Consider watering the plant.
           </div>
         )}
 
