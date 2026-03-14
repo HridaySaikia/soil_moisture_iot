@@ -1,0 +1,224 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import DeviceSelector from "@/components/DeviceSelector";
+import ThresholdControl from "@/components/ThresholdControl";
+import MoistureChart from "@/components/MoistureChart";
+import MoistureGauge from "@/components/MoistureGauge";
+import PlantHealthCard from "@/components/PlantHealthCard";
+import SystemStatusCard from "@/components/SystemStatusCard";
+import InsightsPanel from "@/components/InsightsPanel";
+import AlertHistory from "@/components/AlertHistory";
+import RangeSelector from "@/components/RangeSelector";
+import ThemeToggle from "@/components/ThemeToggle";
+import TrendIndicator from "@/components/TrendIndicator";
+
+type Reading = {
+  deviceId: string;
+  moistureRaw: number;
+  moisturePct: number;
+  createdAt: string;
+};
+
+export default function DashboardPage() {
+  const devices = ["plant-01", "plant-02", "plant-03"];
+  const [deviceId, setDeviceId] = useState(devices[0]);
+  const [latest, setLatest] = useState<Reading | null>(null);
+  const [history, setHistory] = useState<Reading[]>([]);
+  const [threshold, setThreshold] = useState(30);
+  const [range, setRange] = useState("1h");
+
+  useEffect(() => {
+    let alive = true;
+
+    async function load() {
+      const [latestRes, histRes] = await Promise.all([
+        fetch(`/api/moisture/latest?deviceId=${deviceId}`, { cache: "no-store" }),
+        fetch(`/api/moisture/history?deviceId=${deviceId}&limit=120`, { cache: "no-store" }),
+      ]);
+
+      let latestJson = { latest: null };
+      let histJson = { history: [] };
+
+      if (latestRes.ok) {
+        latestJson = await latestRes.json();
+      } else {
+        console.error("Latest API failed:", await latestRes.text());
+      }
+
+      if (histRes.ok) {
+        histJson = await histRes.json();
+      } else {
+        console.error("History API failed:", await histRes.text());
+      }
+
+      if (!alive) return;
+
+      setLatest(latestJson.latest ?? null);
+      setHistory(histJson.history ?? []);
+    }
+
+    load();
+    // const t = setInterval(load, 2000);
+
+    return () => {
+      alive = false;
+      // clearInterval(t);
+    };
+  }, [deviceId]);
+
+  const moisturePct = latest?.moisturePct ?? 0;
+
+  const previousMoisture = history.length >= 2 ? history[history.length - 2].moisturePct : null;
+
+  const isDryAlert =
+    latest?.moisturePct !== undefined &&
+    latest.moisturePct < threshold;
+
+  const lastUpdated = latest?.createdAt
+    ? new Date(latest.createdAt).toLocaleString()
+    : "No data yet";
+
+  const online = latest?.createdAt
+    ? Date.now() - new Date(latest.createdAt).getTime() < 15000
+    : false;
+
+  const chartData = useMemo(() => {
+    return history.map((r) => ({
+      time: new Date(r.createdAt).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      moisture: r.moisturePct,
+    }));
+  }, [history]);
+
+  const alerts = useMemo(() => {
+    const items: { time: string; message: string; type: "info" | "warning" | "success" }[] = [];
+
+    if (latest) {
+      items.push({
+        time: new Date(latest.createdAt).toLocaleString(),
+        message: `New reading received from ${latest.deviceId}: ${latest.moisturePct}% moisture`,
+        type: "info",
+      });
+    }
+
+    if (isDryAlert) {
+      items.push({
+        time: new Date().toLocaleString(),
+        message: `Moisture dropped below threshold (${threshold}%).`,
+        type: "warning",
+      });
+    }
+
+    if (online) {
+      items.push({
+        time: new Date().toLocaleString(),
+        message: "Device is online and reporting normally.",
+        type: "success",
+      });
+    }
+
+    return items;
+  }, [latest, isDryAlert, threshold, online]);
+
+  return (
+    <main
+      className="min-h-screen"
+      style={{
+        background: "var(--page-bg)",
+        color: "var(--text-primary)",
+      }}
+    >
+      <header
+        className="sticky top-0 z-20 border-b backdrop-blur-xl"
+        style={{
+          borderColor: "var(--border)",
+          background: "var(--bg-secondary)",
+        }}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+          <div>
+            <p
+              className="text-sm uppercase tracking-[0.2em]"
+              style={{ color: "var(--accent)" }}
+            >
+              Real-Time Plant Monitoring Platform
+            </p>
+            <h1 className="mt-1 text-2xl font-semibold">DASHBOARD</h1>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <DeviceSelector value={deviceId} onChange={setDeviceId} devices={devices} />
+            <span className={`h-2.5 w-2.5 rounded-full ${online ? "bg-emerald-400" : "bg-red-400"}`} />
+            <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              {online ? "Online" : "Offline"}
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-7xl space-y-6 px-4 py-8">
+        {isDryAlert && (
+          <div
+            className="rounded-2xl border p-4"
+            style={{
+              borderColor: "var(--danger)",
+              background: "var(--danger-soft)",
+              color: "var(--danger)",
+              boxShadow: "var(--shadow-soft)",
+            }}
+          >
+            ⚠️ Alert: Soil is dry ({latest?.moisturePct}%). Consider watering the plant.
+          </div>
+        )}
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <MoistureGauge value={moisturePct} />
+          </div>
+
+          <div className="space-y-6">
+            <PlantHealthCard moisturePct={moisturePct} threshold={threshold} />
+            <SystemStatusCard online={online} lastUpdated={lastUpdated} points={chartData.length} />
+          </div>
+        </div>
+
+        <TrendIndicator current={moisturePct} previous={previousMoisture} />
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 lg:col-span-2">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-lg font-semibold">Moisture History</h2>
+                <p className="text-sm text-gray-400">
+                  Real-time trend of soil moisture readings
+                </p>
+              </div>
+              <RangeSelector value={range} onChange={setRange} />
+            </div>
+
+            <div className="mt-5 h-[320px]">
+              <MoistureChart data={chartData} />
+            </div>
+
+            {chartData.length === 0 && (
+              <p className="mt-3 text-sm text-gray-400">
+                No history yet. Incoming ESP32 readings will appear here.
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-6">
+            <ThresholdControl deviceId={deviceId} onChange={setThreshold} />
+            <InsightsPanel moisturePct={moisturePct} threshold={threshold} online={online} />
+          </div>
+        </div>
+
+        <AlertHistory alerts={alerts} />
+      </section>
+    </main>
+  );
+}
