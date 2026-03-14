@@ -80,7 +80,7 @@ export default function DashboardPage() {
     : "No data yet";
 
   const online = latest?.createdAt
-    ? Date.now() - new Date(latest.createdAt).getTime() < 15000
+    ? Date.now() - new Date(latest.createdAt).getTime() < 60000
     : false;
 
   const chartData = useMemo(() => {

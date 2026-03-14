@@ -22,9 +22,14 @@ export async function GET(req: Request) {
       .limit(1)
       .toArray();
 
-    return NextResponse.json({
-      latest: latest[0] || null,
-    });
+    return NextResponse.json(
+      { latest: latest[0] || null },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        },
+      }
+    );
   } catch (error) {
     console.error("LATEST API ERROR:", error);
     return NextResponse.json(
