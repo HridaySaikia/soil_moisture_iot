@@ -29,62 +29,83 @@ export default function DashboardPage() {
   const [range, setRange] = useState("1h");
 
   useEffect(() => {
-  let alive = true;
+    let alive = true;
+    let loading = false;
 
-  async function load() {
-    const [latestRes, histRes] = await Promise.all([
-      fetch(`/api/moisture/latest?deviceId=${deviceId}`, { cache: "no-store" }),
-      fetch(`/api/moisture/history?deviceId=${deviceId}&limit=120`, { cache: "no-store" }),
-    ]);
+    async function load() {
+      if (loading) return;
+      loading = true;
 
-    let latestJson = { latest: null };
-    let histJson = { history: [] };
+      try {
+        const [latestRes, histRes] = await Promise.all([
+          fetch(`/api/moisture/latest?deviceId=${deviceId}`, {
+            cache: "no-store",
+          }),
+          fetch(`/api/moisture/history?deviceId=${deviceId}&limit=120`, {
+            cache: "no-store",
+          }),
+        ]);
 
-    if (latestRes.ok) {
-      latestJson = await latestRes.json();
-    } else {
-      console.error("Latest API failed:", await latestRes.text());
+        let latestJson = { latest: null as Reading | null };
+        let histJson = { history: [] as Reading[] };
+
+        if (latestRes.ok) {
+          latestJson = await latestRes.json();
+        } else {
+          console.error("Latest API failed:", await latestRes.text());
+        }
+
+        if (histRes.ok) {
+          histJson = await histRes.json();
+        } else {
+          console.error("History API failed:", await histRes.text());
+        }
+
+        if (!alive) return;
+
+        const nextHistory = histJson.history ?? [];
+        const nextLatest =
+          nextHistory.length > 0
+            ? nextHistory[nextHistory.length - 1]
+            : latestJson.latest ?? null;
+
+        setHistory(nextHistory);
+        setLatest(nextLatest);
+      } catch (error) {
+        console.error("Dashboard polling error:", error);
+      } finally {
+        loading = false;
+      }
     }
 
-    if (histRes.ok) {
-      histJson = await histRes.json();
-    } else {
-      console.error("History API failed:", await histRes.text());
-    }
+    load();
+    const t = setInterval(load, 5000);
 
-    if (!alive) return;
-
-    setLatest(latestJson.latest ?? null);
-    setHistory(histJson.history ?? []);
-  }
-
-  load();
-  const t = setInterval(load, 5000);
-
-  return () => {
-    alive = false;
-    clearInterval(t);
-  };
-}, [deviceId]);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
+  }, [deviceId]);
 
   const latestReading =
-  latest ?? (history.length > 0 ? history[history.length - 1] : null);
+    history.length > 0 ? history[history.length - 1] : latest;
 
   const moisturePct = latestReading?.moisturePct ?? 0;
 
-  const previousMoisture = history.length >= 2 ? history[history.length - 2].moisturePct : null;
+  const previousMoisture =
+    history.length >= 2 ? history[history.length - 2].moisturePct : null;
 
   const isDryAlert =
-  latestReading?.moisturePct !== undefined &&
-  latestReading.moisturePct < threshold;
+    latestReading?.moisturePct !== undefined &&
+    latestReading.moisturePct < threshold;
 
   const lastUpdated = latestReading?.createdAt
-  ? new Date(latestReading.createdAt).toLocaleString()
-  : "No data yet";
+    ? new Date(latestReading.createdAt).toLocaleString()
+    : "No data yet";
 
   const online = latestReading?.createdAt
-  ? Date.now() - new Date(latestReading.createdAt).getTime() < 60000
-  : false;
+    ? Date.now() - new Date(latestReading.createdAt).getTime() < 120000
+    : false;
 
   const chartData = useMemo(() => {
     return history.map((r) => ({
@@ -97,12 +118,16 @@ export default function DashboardPage() {
   }, [history]);
 
   const alerts = useMemo(() => {
-    const items: { time: string; message: string; type: "info" | "warning" | "success" }[] = [];
+    const items: {
+      time: string;
+      message: string;
+      type: "info" | "warning" | "success";
+    }[] = [];
 
-    if (latest) {
+    if (latestReading) {
       items.push({
-        time: new Date(latest.createdAt).toLocaleString(),
-        message: `New reading received from ${latest.deviceId}: ${latest.moisturePct}% moisture`,
+        time: new Date(latestReading.createdAt).toLocaleString(),
+        message: `New reading received from ${latestReading.deviceId}: ${latestReading.moisturePct}% moisture`,
         type: "info",
       });
     }
@@ -124,7 +149,7 @@ export default function DashboardPage() {
     }
 
     return items;
-  }, [latest, isDryAlert, threshold, online]);
+  }, [latestReading, isDryAlert, threshold, online]);
 
   return (
     <main
@@ -154,9 +179,20 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <DeviceSelector value={deviceId} onChange={setDeviceId} devices={devices} />
-            <span className={`h-2.5 w-2.5 rounded-full ${online ? "bg-emerald-400" : "bg-red-400"}`} />
-            <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <DeviceSelector
+              value={deviceId}
+              onChange={setDeviceId}
+              devices={devices}
+            />
+            <span
+              className={`h-2.5 w-2.5 rounded-full ${
+                online ? "bg-emerald-400" : "bg-red-400"
+              }`}
+            />
+            <span
+              className="text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
               {online ? "Online" : "Offline"}
             </span>
           </div>
@@ -174,7 +210,8 @@ export default function DashboardPage() {
               boxShadow: "var(--shadow-soft)",
             }}
           >
-            ⚠️ Alert: Soil is dry ({latestReading?.moisturePct}%). Consider watering the plant.
+            ⚠️ Alert: Soil is dry ({latestReading?.moisturePct}%). Consider
+            watering the plant.
           </div>
         )}
 
@@ -184,8 +221,15 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-6">
-            <PlantHealthCard moisturePct={moisturePct} threshold={threshold} />
-            <SystemStatusCard online={online} lastUpdated={lastUpdated} points={chartData.length} />
+            <PlantHealthCard
+              moisturePct={moisturePct}
+              threshold={threshold}
+            />
+            <SystemStatusCard
+              online={online}
+              lastUpdated={lastUpdated}
+              points={chartData.length}
+            />
           </div>
         </div>
 
@@ -215,8 +259,15 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-6">
-            <ThresholdControl deviceId={deviceId} onChange={setThreshold} />
-            <InsightsPanel moisturePct={moisturePct} threshold={threshold} online={online} />
+            <ThresholdControl
+              deviceId={deviceId}
+              onChange={setThreshold}
+            />
+            <InsightsPanel
+              moisturePct={moisturePct}
+              threshold={threshold}
+              online={online}
+            />
           </div>
         </div>
 
