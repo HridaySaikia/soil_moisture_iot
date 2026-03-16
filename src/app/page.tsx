@@ -1,5 +1,5 @@
 "use client";
-
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -20,7 +20,9 @@ export default function Home() {
         }}
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
-          <h1 className="text-lg font-semibold">PlantMonitor</h1>
+          <Link href="/">
+            <Logo />
+          </Link>
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/about" className="text-sm">
@@ -41,7 +43,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28">
         <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-          Smart Plant Monitoring Platform
+          Real-time Plant Monitoring Platform
         </h1>
 
         <p

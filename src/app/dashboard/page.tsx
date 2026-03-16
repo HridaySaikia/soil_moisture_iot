@@ -1,5 +1,5 @@
 "use client";
-
+import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import DeviceSelector from "@/components/DeviceSelector";
@@ -179,8 +179,9 @@ export default function DashboardPage() {
             </button>
 
             <div>
+              <Logo />
               <p
-                className="text-xs uppercase tracking-[0.2em] sm:text-sm"
+                className="mt-2 text-xs uppercase tracking-[0.2em] sm:text-sm"
                 style={{ color: "var(--accent)" }}
               >
                 Real-Time Plant Monitoring Platform

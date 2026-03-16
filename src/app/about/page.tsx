@@ -1,5 +1,5 @@
 "use client";
-
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -32,8 +32,8 @@ export default function AboutPage() {
               ← Back
             </button>
 
-            <Link href="/" className="text-lg font-semibold">
-              PlantMonitor
+            <Link href="/">
+            <Logo />
             </Link>
           </div>
 
