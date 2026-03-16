@@ -14,6 +14,7 @@ import RangeSelector from "@/components/RangeSelector";
 import ThemeToggle from "@/components/ThemeToggle";
 import TrendIndicator from "@/components/TrendIndicator";
 import { Show, UserButton } from "@clerk/nextjs";
+import { Link } from "lucide-react";
 
 type Reading = {
   deviceId: string;
@@ -179,9 +180,9 @@ export default function DashboardPage() {
               ← Back
             </button>
 
-            <div>
+            <Link href="/">
               <Logo />
-            </div>
+            </Link>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">

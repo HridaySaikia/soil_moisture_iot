@@ -1,15 +1,23 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import clientPromise from "@/lib/db";
 
 export async function GET(req: Request) {
   try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const deviceId = searchParams.get("deviceId");
 
     if (!deviceId) {
-      return NextResponse.json({ latest: null }, { status: 200 });
+      return NextResponse.json({ latest: null });
     }
 
     const client = await clientPromise;
@@ -17,7 +25,7 @@ export async function GET(req: Request) {
 
     const latest = await db
       .collection("readings")
-      .find({ deviceId })
+      .find({ userId, deviceId })
       .sort({ createdAt: -1 })
       .limit(1)
       .toArray();
