@@ -1,39 +1,44 @@
 export default function About() {
   return (
     <main
-      className="min-h-screen px-6 py-20"
-      style={{ background: "var(--page-bg)", color: "var(--text-primary)" }}
+      className="min-h-screen px-6 py-24"
+      style={{
+        background: "var(--page-bg)",
+        color: "var(--text-primary)",
+      }}
     >
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-8">
 
-        <h1 className="text-3xl font-bold">
-          About the Project
+        <h1 className="text-4xl font-bold">
+          About This Project
         </h1>
 
-        <p>
-          This project is an IoT-based smart plant monitoring system designed
-          to measure soil moisture in real time using an ESP32 microcontroller
-          and capacitive soil moisture sensor.
+        <p style={{ color: "var(--text-secondary)" }}>
+          This project demonstrates a full-stack IoT system for monitoring soil
+          moisture using embedded sensors and a cloud dashboard.
         </p>
 
-        <p>
-          Sensor data is transmitted to a cloud API where it is stored in a
-          MongoDB database and visualized through a modern web dashboard
-          built with Next.js.
-        </p>
-
-        <h2 className="text-xl font-semibold mt-6">
-          Key Features
+        <h2 className="text-2xl font-semibold">
+          Technology Stack
         </h2>
 
         <ul className="list-disc ml-6 space-y-2">
-          <li>Real-time soil moisture monitoring</li>
-          <li>Historical moisture charts</li>
-          <li>Device online/offline detection</li>
-          <li>Dry soil alert system</li>
-          <li>Cloud database storage</li>
-          <li>ESP32 IoT sensor integration</li>
+          <li>ESP32 Microcontroller</li>
+          <li>Capacitive Soil Moisture Sensor</li>
+          <li>Next.js Web Dashboard</li>
+          <li>MongoDB Atlas Cloud Database</li>
+          <li>REST API Communication</li>
         </ul>
+
+        <h2 className="text-2xl font-semibold">
+          Project Objective
+        </h2>
+
+        <p style={{ color: "var(--text-secondary)" }}>
+          The goal of this system is to enable intelligent plant monitoring
+          through IoT devices that transmit environmental data to a cloud
+          platform for analysis and visualization.
+        </p>
 
       </div>
     </main>
