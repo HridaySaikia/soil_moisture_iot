@@ -13,6 +13,7 @@ import AlertHistory from "@/components/AlertHistory";
 import RangeSelector from "@/components/RangeSelector";
 import ThemeToggle from "@/components/ThemeToggle";
 import TrendIndicator from "@/components/TrendIndicator";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 type Reading = {
   deviceId: string;
@@ -185,6 +186,9 @@ export default function DashboardPage() {
 
           <div className="flex flex-wrap items-center gap-3">
             <ThemeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
             <DeviceSelector
               value={deviceId}
               onChange={setDeviceId}

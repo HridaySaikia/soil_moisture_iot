@@ -1,5 +1,11 @@
 "use client";
-
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -37,6 +43,27 @@ export default function Home() {
             >
               Dashboard
             </Link>
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button
+                  className="rounded-lg border px-4 py-2 text-sm"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  Sign In
+                </button>
+              </SignInButton>
+
+              <SignUpButton mode="modal">
+                <button className="rounded-lg bg-white/10 px-4 py-2 text-sm">
+                  Sign Up
+                </button>
+              </SignUpButton>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
 
             <ThemeToggle />
           </div>
