@@ -1,4 +1,5 @@
 "use client";
+
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -42,38 +43,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28">
-        <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-          Real-time Plant Monitoring Platform
-        </h1>
-
-        <p
-          className="mx-auto mt-6 max-w-2xl text-base sm:text-lg"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          Monitor soil moisture in real-time using IoT sensors and a cloud
-          dashboard. Track plant health, analyze moisture history, and receive
-          alerts when plants need watering.
-        </p>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link
-            href="/dashboard"
-            className="w-full rounded-xl bg-blue-500 px-6 py-3 font-medium text-white sm:w-auto"
-          >
-            Open Dashboard
-          </Link>
-
-          <Link
-            href="/about"
-            className="w-full rounded-xl border px-6 py-3 sm:w-auto"
-            style={{ borderColor: "var(--border)" }}
-          >
-            Learn More
-          </Link>
-        </div>
-      </section>
-
+      {/* Hero section with signal waves */}
       <section className="relative isolate overflow-hidden">
         <SignalWavesBackground />
 
@@ -108,9 +78,9 @@ export default function Home() {
             className="mx-auto mt-6 max-w-3xl text-base leading-8 sm:text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
-            Monitor soil moisture in real-time using ESP32 sensors, cloud APIs, and
-            a responsive dashboard. Track plant health, visualize trends, and receive
-            alerts when watering is needed.
+            Monitor soil moisture in real-time using ESP32 sensors, cloud APIs,
+            and a responsive dashboard. Track plant health, visualize trends,
+            and receive alerts when watering is needed.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -132,6 +102,58 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features */}
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+        <h2 className="mb-10 text-center text-2xl font-semibold sm:mb-14 sm:text-3xl">
+          Platform Features
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+          <div
+            className="rounded-2xl border p-6"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--card)",
+            }}
+          >
+            <h3 className="mb-2 text-lg font-semibold">Real-Time Monitoring</h3>
+            <p style={{ color: "var(--text-secondary)" }}>
+              ESP32 sensors continuously transmit soil moisture data to the
+              cloud dashboard for live monitoring.
+            </p>
+          </div>
+
+          <div
+            className="rounded-2xl border p-6"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--card)",
+            }}
+          >
+            <h3 className="mb-2 text-lg font-semibold">Historical Analytics</h3>
+            <p style={{ color: "var(--text-secondary)" }}>
+              Analyze moisture trends over time with interactive charts and
+              historical sensor readings.
+            </p>
+          </div>
+
+          <div
+            className="rounded-2xl border p-6"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--card)",
+            }}
+          >
+            <h3 className="mb-2 text-lg font-semibold">Smart Alerts</h3>
+            <p style={{ color: "var(--text-secondary)" }}>
+              Get alerts when moisture drops below threshold so watering can be
+              done at the right time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Architecture */}
       <section
         className="border-t py-16 sm:py-20"
         style={{ borderColor: "var(--border)" }}
