@@ -14,7 +14,7 @@ import RangeSelector from "@/components/RangeSelector";
 import ThemeToggle from "@/components/ThemeToggle";
 import TrendIndicator from "@/components/TrendIndicator";
 import { Show, UserButton } from "@clerk/nextjs";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 type Reading = {
   deviceId: string;
