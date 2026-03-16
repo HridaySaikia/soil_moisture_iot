@@ -170,7 +170,7 @@ export default function DashboardPage() {
           <div>
             <p
               className="text-sm uppercase tracking-[0.2em]"
-              style={{ color: "var(--accent)" }}
+              style={{ color: "#0096FF" }}
             >
               Real-Time Plant Monitoring Platform
             </p>
