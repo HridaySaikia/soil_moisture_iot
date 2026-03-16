@@ -15,7 +15,6 @@ export default function AboutPage() {
         color: "var(--text-primary)",
       }}
     >
-      {/* Navbar */}
       <nav
         className="border-b backdrop-blur-xl"
         style={{
@@ -23,8 +22,8 @@ export default function AboutPage() {
           background: "var(--bg-secondary)",
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <button
               onClick={() => router.back()}
               className="rounded-lg border px-4 py-2 text-sm"
@@ -38,7 +37,7 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/" className="text-sm">
               Home
             </Link>
@@ -56,22 +55,21 @@ export default function AboutPage() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="max-w-3xl">
           <p
-            className="text-sm uppercase tracking-[0.2em]"
+            className="text-xs uppercase tracking-[0.2em] sm:text-sm"
             style={{ color: "var(--accent)" }}
           >
             About the Platform
           </p>
 
-          <h1 className="mt-4 text-5xl font-bold leading-tight">
+          <h1 className="mt-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             A cloud-connected IoT system for intelligent plant monitoring
           </h1>
 
           <p
-            className="mt-6 text-lg leading-8"
+            className="mt-6 text-base leading-8 sm:text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
             This project combines embedded systems, cloud APIs, database
@@ -82,9 +80,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Overview cards */}
-      <section className="mx-auto max-w-6xl px-6 pb-20">
-        <div className="grid gap-8 md:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
+        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
           <div
             className="rounded-2xl border p-6"
             style={{
@@ -129,10 +126,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Detailed sections */}
-      <section className="mx-auto grid max-w-6xl gap-10 px-6 pb-24 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-6 px-4 pb-20 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:pb-24">
         <div
-          className="rounded-2xl border p-8"
+          className="rounded-2xl border p-6 sm:p-8"
           style={{
             borderColor: "var(--border)",
             background: "var(--card)",
@@ -153,7 +149,7 @@ export default function AboutPage() {
         </div>
 
         <div
-          className="rounded-2xl border p-8"
+          className="rounded-2xl border p-6 sm:p-8"
           style={{
             borderColor: "var(--border)",
             background: "var(--card)",
@@ -161,7 +157,7 @@ export default function AboutPage() {
         >
           <h2 className="text-2xl font-semibold">System Workflow</h2>
           <div
-            className="mt-5 space-y-3 text-lg"
+            className="mt-5 space-y-3 text-base sm:text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
             <p>Soil Sensor → ESP32</p>
@@ -172,14 +168,17 @@ export default function AboutPage() {
         </div>
 
         <div
-          className="rounded-2xl border p-8 lg:col-span-2"
+          className="rounded-2xl border p-6 sm:p-8 lg:col-span-2"
           style={{
             borderColor: "var(--border)",
             background: "var(--card)",
           }}
         >
           <h2 className="text-2xl font-semibold">Project Objective</h2>
-          <p className="mt-4 leading-8" style={{ color: "var(--text-secondary)" }}>
+          <p
+            className="mt-4 leading-8"
+            style={{ color: "var(--text-secondary)" }}
+          >
             The objective of this project is to create a practical, real-time
             IoT monitoring system that helps users observe plant moisture levels
             remotely, identify dry-soil conditions quickly, and visualize sensor
@@ -188,7 +187,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer
         className="border-t py-8 text-center text-sm"
         style={{

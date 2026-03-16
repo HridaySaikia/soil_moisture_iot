@@ -12,8 +12,6 @@ export default function Home() {
         color: "var(--text-primary)",
       }}
     >
-
-      {/* NAVBAR */}
       <nav
         className="border-b backdrop-blur-xl"
         style={{
@@ -21,40 +19,33 @@ export default function Home() {
           background: "var(--bg-secondary)",
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <h1 className="text-lg font-semibold">PlantMonitor</h1>
 
-          <h1 className="text-lg font-semibold">
-            PlantMonitor
-          </h1>
-
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/about" className="text-sm">
               About
             </Link>
 
             <Link
               href="/dashboard"
-              className="px-4 py-2 rounded-lg bg-blue-500 text-white text-sm"
+              className="rounded-lg bg-blue-500 px-4 py-2 text-sm text-white"
             >
               Dashboard
             </Link>
 
             <ThemeToggle />
           </div>
-
         </div>
       </nav>
 
-
-      {/* HERO */}
-      <section className="mx-auto max-w-6xl px-6 py-28 text-center">
-
-        <h1 className="text-5xl font-bold leading-tight">
+      <section className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28">
+        <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
           Smart Plant Monitoring Platform
         </h1>
 
         <p
-          className="mt-6 text-lg max-w-2xl mx-auto"
+          className="mx-auto mt-6 max-w-2xl text-base sm:text-lg"
           style={{ color: "var(--text-secondary)" }}
         >
           Monitor soil moisture in real-time using IoT sensors and a cloud
@@ -62,37 +53,30 @@ export default function Home() {
           alerts when plants need watering.
         </p>
 
-        <div className="mt-10 flex justify-center gap-4">
-
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/dashboard"
-            className="px-6 py-3 rounded-xl bg-blue-500 text-white font-medium"
+            className="w-full rounded-xl bg-blue-500 px-6 py-3 font-medium text-white sm:w-auto"
           >
             Open Dashboard
           </Link>
 
           <Link
             href="/about"
-            className="px-6 py-3 rounded-xl border"
+            className="w-full rounded-xl border px-6 py-3 sm:w-auto"
             style={{ borderColor: "var(--border)" }}
           >
             Learn More
           </Link>
-
         </div>
-
       </section>
 
-
-      {/* FEATURES */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-
-        <h2 className="text-3xl font-semibold text-center mb-14">
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-24">
+        <h2 className="mb-10 text-center text-2xl font-semibold sm:mb-14 sm:text-3xl">
           Platform Features
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
-
+        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
           <div
             className="rounded-2xl border p-6"
             style={{
@@ -100,10 +84,7 @@ export default function Home() {
               background: "var(--card)",
             }}
           >
-            <h3 className="text-lg font-semibold mb-2">
-              Real-Time Monitoring
-            </h3>
-
+            <h3 className="mb-2 text-lg font-semibold">Real-Time Monitoring</h3>
             <p style={{ color: "var(--text-secondary)" }}>
               ESP32 sensors continuously transmit soil moisture data to the
               cloud dashboard for real-time visualization.
@@ -117,10 +98,7 @@ export default function Home() {
               background: "var(--card)",
             }}
           >
-            <h3 className="text-lg font-semibold mb-2">
-              Historical Analytics
-            </h3>
-
+            <h3 className="mb-2 text-lg font-semibold">Historical Analytics</h3>
             <p style={{ color: "var(--text-secondary)" }}>
               Analyze moisture trends over time with interactive charts and
               real-time sensor updates.
@@ -134,44 +112,33 @@ export default function Home() {
               background: "var(--card)",
             }}
           >
-            <h3 className="text-lg font-semibold mb-2">
-              Smart Alerts
-            </h3>
-
+            <h3 className="mb-2 text-lg font-semibold">Smart Alerts</h3>
             <p style={{ color: "var(--text-secondary)" }}>
               Automatic alerts notify users when soil moisture drops below
               configured thresholds.
             </p>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* ARCHITECTURE */}
       <section
-        className="border-t py-20"
+        className="border-t py-16 sm:py-20"
         style={{ borderColor: "var(--border)" }}
       >
-        <div className="mx-auto max-w-5xl text-center px-6">
-
-          <h2 className="text-3xl font-semibold mb-10">
+        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
+          <h2 className="mb-8 text-2xl font-semibold sm:mb-10 sm:text-3xl">
             System Architecture
           </h2>
 
           <p
-            className="text-lg"
+            className="text-base sm:text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
             Soil Sensor → ESP32 → REST API → MongoDB → Next.js Dashboard
           </p>
-
         </div>
       </section>
 
-
-      {/* FOOTER */}
       <footer
         className="border-t py-8 text-center text-sm"
         style={{
@@ -181,7 +148,6 @@ export default function Home() {
       >
         © {new Date().getFullYear()} Smart Plant Monitoring Platform
       </footer>
-
     </main>
   );
 }

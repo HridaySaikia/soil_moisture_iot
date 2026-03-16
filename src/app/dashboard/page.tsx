@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import DeviceSelector from "@/components/DeviceSelector";
 import ThresholdControl from "@/components/ThresholdControl";
@@ -27,6 +28,7 @@ export default function DashboardPage() {
   const [history, setHistory] = useState<Reading[]>([]);
   const [threshold, setThreshold] = useState(30);
   const [range, setRange] = useState("1h");
+  const router = useRouter();
 
   useEffect(() => {
     let alive = true;
@@ -166,18 +168,28 @@ export default function DashboardPage() {
           background: "var(--bg-secondary)",
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <div>
-            <p
-              className="text-sm uppercase tracking-[0.2em]"
-              style={{ color: "#0096FF" }}
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-3">
+            <button
+              onClick={() => router.back()}
+              className="rounded-lg border px-3 py-2 text-sm"
+              style={{ borderColor: "var(--border)" }}
             >
-              Real-Time Plant Monitoring Platform
-            </p>
-            <h1 className="mt-1 text-2xl font-semibold">DASHBOARD</h1>
+              ← Back
+            </button>
+
+            <div>
+              <p
+                className="text-xs uppercase tracking-[0.2em] sm:text-sm"
+                style={{ color: "var(--accent)" }}
+              >
+                Real-Time Plant Monitoring Platform
+              </p>
+              <h1 className="mt-1 text-xl font-semibold sm:text-2xl">DASHBOARD</h1>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <ThemeToggle />
             <DeviceSelector
               value={deviceId}
@@ -199,7 +211,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl space-y-6 px-4 py-8">
+      <section className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:py-8">
         {isDryAlert && (
           <div
             className="rounded-2xl border p-4"
@@ -236,7 +248,7 @@ export default function DashboardPage() {
         <TrendIndicator current={moisturePct} previous={previousMoisture} />
 
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 lg:col-span-2">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 lg:col-span-2">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <h2 className="text-lg font-semibold">Moisture History</h2>
@@ -247,7 +259,7 @@ export default function DashboardPage() {
               <RangeSelector value={range} onChange={setRange} />
             </div>
 
-            <div className="mt-5 h-[320px]">
+            <div className="mt-5 h-[260px] sm:h-[320px]">
               <MoistureChart data={chartData} />
             </div>
 
@@ -259,10 +271,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-6">
-            <ThresholdControl
-              deviceId={deviceId}
-              onChange={setThreshold}
-            />
+            <ThresholdControl deviceId={deviceId} onChange={setThreshold} />
             <InsightsPanel
               moisturePct={moisturePct}
               threshold={threshold}
