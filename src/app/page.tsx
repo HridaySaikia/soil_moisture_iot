@@ -153,24 +153,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Architecture */}
-      <section
-        className="border-t py-16 sm:py-20"
-        style={{ borderColor: "var(--border)" }}
-      >
-        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-          <h2 className="mb-8 text-2xl font-semibold sm:mb-10 sm:text-3xl">
-            System Architecture
-          </h2>
-
-          <p
-            className="text-base sm:text-lg"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Soil Sensor → ESP32 → REST API → MongoDB → Next.js Dashboard
-          </p>
-        </div>
-      </section>
+      
 
       <footer
         className="border-t py-8 text-center text-sm"
