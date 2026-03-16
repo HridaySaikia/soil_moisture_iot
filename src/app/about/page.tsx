@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
 import {
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
   SignUpButton,
   UserButton,
@@ -60,7 +59,7 @@ export default function AboutPage() {
               Dashboard
             </Link>
 
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton mode="modal">
                 <button
                   className="rounded-lg border px-4 py-2 text-sm"
@@ -75,11 +74,11 @@ export default function AboutPage() {
                   Sign Up
                 </button>
               </SignUpButton>
-            </SignedOut>
+            </Show>
 
-            <SignedIn>
+            <Show when="signed-in">
               <UserButton />
-            </SignedIn>
+            </Show>
 
             <ThemeToggle />
           </div>

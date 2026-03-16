@@ -1,11 +1,11 @@
 "use client";
 import {
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -44,7 +44,7 @@ export default function Home() {
               Dashboard
             </Link>
 
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton mode="modal">
                 <button
                   className="rounded-lg border px-4 py-2 text-sm"
@@ -59,11 +59,11 @@ export default function Home() {
                   Sign Up
                 </button>
               </SignUpButton>
-            </SignedOut>
+            </Show>
 
-            <SignedIn>
+            <Show when="signed-in">
               <UserButton />
-            </SignedIn>
+            </Show>
 
             <ThemeToggle />
           </div>
