@@ -180,13 +180,6 @@ export default function DashboardPage() {
 
             <div>
               <Logo />
-              <p
-                className="mt-2 text-xs uppercase tracking-[0.2em] sm:text-sm"
-                style={{ color: "var(--accent)" }}
-              >
-                Real-Time Plant Monitoring Platform
-              </p>
-              <h1 className="mt-1 text-xl font-semibold sm:text-2xl">DASHBOARD</h1>
             </div>
           </div>
 
