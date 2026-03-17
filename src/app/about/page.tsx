@@ -220,122 +220,133 @@ export default function AboutPage() {
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="text-center">
           <p
-            className="text-sm uppercase tracking-[0.25em]"
+            className="text-xs uppercase tracking-[0.28em] sm:text-sm"
             style={{ color: "var(--accent)" }}
           >
             Developer
           </p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Crafted with passion for IoT and modern web systems
+
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Designed and developed by
           </h2>
+
           <p
-            className="mx-auto mt-4 max-w-2xl text-sm sm:text-base"
+            className="mx-auto mt-4 max-w-2xl text-sm leading-7 sm:text-base"
             style={{ color: "var(--text-secondary)" }}
           >
-            A full-stack smart plant monitoring platform designed and developed for
-            real-time sensor analytics, cloud connectivity, and modern dashboard
-            experiences.
+            A full-stack IoT platform built to combine embedded systems, cloud APIs,
+            real-time monitoring, and modern dashboard design into one polished product experience.
           </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-3xl">
-          <div
-            className="rounded-[32px] p-[1px]"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(34,197,94,0.35), rgba(59,130,246,0.28), rgba(168,85,247,0.28))",
-            }}
-          >
-            <div
-              className="rounded-[31px] border px-6 py-8 sm:px-10 sm:py-10"
-              style={{
-                borderColor: "rgba(255,255,255,0.06)",
-                background:
-                  "linear-gradient(180deg, rgba(8,15,32,0.92), rgba(5,10,24,0.96))",
-                boxShadow:
-                  "0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
-                backdropFilter: "blur(14px)",
-              }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <div
-                  className="flex h-20 w-20 items-center justify-center rounded-full text-2xl font-semibold"
+        <div
+          className="mx-auto mt-10 grid max-w-5xl gap-6 rounded-[28px] border p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--card)",
+            boxShadow: "var(--shadow-soft)",
+          }}
+        >
+          {/* Left side */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-2xl text-xl font-semibold"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(34,197,94,0.16), rgba(59,130,246,0.16))",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-primary)",
+                }}
+              >
+                HS
+              </div>
+
+              <h3 className="mt-5 text-2xl font-semibold sm:text-3xl">
+                Hridayananda Saikia
+              </h3>
+
+              <p
+                className="mt-3 text-sm leading-7 sm:text-base"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                B.Tech Electronics & Communication Engineering, Tezpur University.
+                Passionate about embedded systems, IoT platforms, and full-stack development.
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              {["Embedded Systems", "IoT", "Full Stack", "Cloud Dashboard"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full px-4 py-2 text-xs sm:text-sm"
                   style={{
-                    background:
-                      "linear-gradient(135deg, rgba(34,197,94,0.2), rgba(59,130,246,0.2))",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "var(--text-primary)",
+                    background: "var(--bg-secondary)",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-secondary)",
                   }}
                 >
-                  HS
-                </div>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
 
-                <h3 className="mt-5 text-2xl font-semibold sm:text-3xl">
-                  Hridayananda Saikia
-                </h3>
+          {/* Right side */}
+          <div
+            className="rounded-2xl border p-5 sm:p-6"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--bg-secondary)",
+            }}
+          >
+            <p
+              className="text-xs uppercase tracking-[0.24em]"
+              style={{ color: "var(--accent)" }}
+            >
+              Connect
+            </p>
 
-                <p
-                  className="mt-2 text-sm sm:text-base"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  B.Tech Electronics & Communication Engineering
-                </p>
-                <p
-                  className="text-sm sm:text-base"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  Tezpur University
-                </p>
+            <h4 className="mt-3 text-xl font-semibold">
+              Explore more of my work
+            </h4>
 
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                  {["Embedded Systems", "IoT", "Full Stack", "Cloud Dashboard"].map(
-                    (item) => (
-                      <span
-                        key={item}
-                        className="rounded-full px-4 py-2 text-xs sm:text-sm"
-                        style={{
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                          color: "var(--text-secondary)",
-                        }}
-                      >
-                        {item}
-                      </span>
-                    )
-                  )}
-                </div>
+            <p
+              className="mt-3 text-sm leading-7"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              View source code, projects, and portfolio work through the links below.
+            </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href="https://github.com/hridaysaikia"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-xl px-5 py-3 text-sm font-medium transition"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(59,130,246,0.95), rgba(37,99,235,0.95))",
-                      color: "white",
-                      boxShadow: "0 10px 24px rgba(37,99,235,0.25)",
-                    }}
-                  >
-                    View GitHub
-                  </a>
+            <div className="mt-6 flex flex-col gap-3">
+              <a
+                href="https://github.com/Hridaysaikia"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(59,130,246,0.95), rgba(37,99,235,0.95))",
+                  color: "white",
+                  boxShadow: "0 10px 24px rgba(37,99,235,0.18)",
+                }}
+              >
+                View GitHub
+              </a>
 
-                  <a
-                    href="https://portfolio-full-new.vercel.app"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-xl px-5 py-3 text-sm font-medium transition"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Visit Portfolio
-                  </a>
-                </div>
-              </div>
+              <a
+                href="https://portfolio-full-new.vercel.app"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition"
+                style={{
+                  background: "var(--card)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-primary)",
+                }}
+              >
+                Visit Portfolio
+              </a>
             </div>
           </div>
         </div>
@@ -345,7 +356,7 @@ export default function AboutPage() {
         className="border-t"
         style={{
           borderColor: "var(--border)",
-          background: "rgba(255,255,255,0.02)",
+          background: "var(--bg-secondary)",
         }}
       >
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-center sm:flex-row sm:text-left">
@@ -371,8 +382,8 @@ export default function AboutPage() {
               rel="noreferrer"
               className="rounded-full px-4 py-2 text-sm"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "var(--card)",
+                border: "1px solid var(--border)",
                 color: "var(--text-primary)",
               }}
             >
@@ -385,8 +396,8 @@ export default function AboutPage() {
               rel="noreferrer"
               className="rounded-full px-4 py-2 text-sm"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "var(--card)",
+                border: "1px solid var(--border)",
                 color: "var(--text-primary)",
               }}
             >
