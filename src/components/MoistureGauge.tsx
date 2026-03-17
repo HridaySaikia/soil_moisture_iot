@@ -1,7 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function MoistureGauge({ value }: { value: number }) {
   const safeValue = Math.max(0, Math.min(100, value));
+
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setIsDark(document.documentElement.getAttribute("data-theme") === "dark");
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const stroke = 18;
   const radius = 110;
@@ -9,10 +29,6 @@ export default function MoistureGauge({ value }: { value: number }) {
   const circumference = Math.PI * normalizedRadius;
   const strokeDashoffset =
     circumference - (safeValue / 100) * circumference;
-
-  const isDark =
-    typeof document !== "undefined" &&
-    document.documentElement.getAttribute("data-theme") === "dark";
 
   return (
     <div
@@ -31,6 +47,7 @@ export default function MoistureGauge({ value }: { value: number }) {
             linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96))
           `,
         boxShadow: "var(--shadow-soft)",
+        transition: "background 0.2s ease, border-color 0.2s ease",
       }}
     >
       <div className="flex items-center justify-between">
@@ -86,6 +103,7 @@ export default function MoistureGauge({ value }: { value: number }) {
                   filter: isDark
                     ? "drop-shadow(0 0 8px rgba(34,197,94,0.45))"
                     : "drop-shadow(0 1px 2px rgba(14,165,233,0.18))",
+                  transition: "filter 0.2s ease, stroke 0.2s ease",
                 }}
               />
             )}
