@@ -92,12 +92,32 @@ export default function DashboardPage() {
   }, [deviceId]);
 
   const latestReading =
-    history.length > 0 ? history[history.length - 1] : latest;
+  history.length > 0 ? history[history.length - 1] : latest;
 
   const moisturePct = latestReading?.moisturePct ?? 0;
 
+  const filteredHistory = useMemo(() => {
+    const now = Date.now();
+
+    const rangeMsMap: Record<string, number> = {
+      "15m": 15 * 60 * 1000,
+      "1h": 60 * 60 * 1000,
+      "6h": 6 * 60 * 60 * 1000,
+      "24h": 24 * 60 * 60 * 1000,
+    };
+
+    const selectedRangeMs = rangeMsMap[range] ?? 60 * 60 * 1000;
+
+    return history.filter((reading) => {
+      const readingTime = new Date(reading.createdAt).getTime();
+      return now - readingTime <= selectedRangeMs;
+    });
+  }, [history, range]);
+
   const previousMoisture =
-    history.length >= 2 ? history[history.length - 2].moisturePct : null;
+    filteredHistory.length >= 2
+      ? filteredHistory[filteredHistory.length - 2].moisturePct
+      : null;
 
   const isDryAlert =
     latestReading?.moisturePct !== undefined &&
@@ -112,14 +132,15 @@ export default function DashboardPage() {
     : false;
 
   const chartData = useMemo(() => {
-    return history.map((r) => ({
+    return filteredHistory.map((r) => ({
       time: new Date(r.createdAt).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       }),
       moisture: r.moisturePct,
+      fullTime: new Date(r.createdAt).toLocaleString(),
     }));
-  }, [history]);
+  }, [filteredHistory]);
 
   const alerts = useMemo(() => {
     const items: {
