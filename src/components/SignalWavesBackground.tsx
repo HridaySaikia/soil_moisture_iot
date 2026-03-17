@@ -1,54 +1,43 @@
 export default function SignalWavesBackground() {
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <svg
-        className="absolute w-[200%] h-[200%] opacity-20"
+        className="h-full w-full opacity-100"
         viewBox="0 0 1440 900"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice"
       >
-        {/* Wave 1 */}
-        <path
-          d="M0 200 Q200 100 400 200 T800 200 T1200 200 T1600 200"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
+        <defs>
+          <linearGradient id="waveStroke" x1="0" y1="0" x2="1440" y2="900">
+            <stop offset="0%" stopColor="rgba(59,130,246,0.18)" />
+            <stop offset="55%" stopColor="rgba(99,102,241,0.16)" />
+            <stop offset="100%" stopColor="rgba(14,165,233,0.14)" />
+          </linearGradient>
+        </defs>
 
-        {/* Wave 2 */}
-        <path
-          d="M0 300 Q200 200 400 300 T800 300 T1200 300 T1600 300"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
-
-        {/* Wave 3 */}
-        <path
-          d="M0 400 Q200 300 400 400 T800 400 T1200 400 T1600 400"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
-
-        {/* Wave 4 */}
-        <path
-          d="M0 500 Q200 400 400 500 T800 500 T1200 500 T1600 500"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
-
-        {/* Wave 5 */}
-        <path
-          d="M0 600 Q200 500 400 600 T800 600 T1200 600 T1600 600"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
-
-        {/* Wave 6 */}
-        <path
-          d="M0 700 Q200 600 400 700 T800 700 T1200 700 T1600 700"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-        />
+        {Array.from({ length: 18 }).map((_, i) => {
+          const y = 40 + i * 42;
+          return (
+            <path
+              key={i}
+              d={`M -80 ${y} Q 360 ${y - 90} 720 ${y} T 1520 ${y}`}
+              stroke="url(#waveStroke)"
+              strokeWidth="1.4"
+              opacity={0.85 - i * 0.02}
+              fill="none"
+            />
+          );
+        })}
       </svg>
+
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 35%, rgba(99,102,241,0.08), transparent 30%), radial-gradient(circle at 15% 85%, rgba(14,165,233,0.08), transparent 24%)",
+        }}
+      />
     </div>
   );
 }
