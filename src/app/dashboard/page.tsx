@@ -304,6 +304,40 @@ export default function DashboardPage() {
 
         <AlertHistory alerts={alerts} />
       </section>
+
+      <footer
+        className="border-t py-8 text-center text-sm"
+        style={{
+          borderColor: "var(--border)",
+          color: "var(--text-secondary)",
+        }}
+      >
+        © {new Date().getFullYear()} Smart Plant Monitoring Platform
+
+        <div className="mt-2">
+          Developed by <span className="font-medium">Hridayananda Saikia</span>
+        </div>
+
+        <div className="mt-3 flex justify-center gap-6 text-sm">
+
+          <a
+            href="https://github.com/HridaySaikia"
+            target="_blank"
+            className="hover:underline"
+          >
+            GitHub
+          </a>
+
+          <a
+            href="https://portfolio-full-new.vercel.app"
+            target="_blank"
+            className="hover:underline"
+          >
+            Portfolio
+          </a>
+
+        </div>
+      </footer>
     </main>
   );
 }

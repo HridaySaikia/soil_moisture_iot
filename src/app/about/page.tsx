@@ -217,6 +217,74 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 py-16 text-center">
+        <h2
+          className="text-2xl font-semibold"
+          style={{ color: "var(--text-primary)" }}
+        >
+          Built & Developed By
+        </h2>
+
+        <div
+          className="mx-auto mt-8 max-w-md rounded-3xl border p-8"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-secondary)",
+            boxShadow: "var(--shadow-soft)",
+          }}
+        >
+          <div className="mb-4 text-4xl">👨‍💻</div>
+
+          <h3 className="text-xl font-semibold">
+            Hridayananda Saikia
+          </h3>
+
+          <p
+            className="mt-1 text-sm"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            B.Tech Electronics & Communication Engineering
+          </p>
+
+          <p
+            className="text-sm"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Tezpur University
+          </p>
+
+          <p
+            className="mt-3 text-sm"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Embedded Systems • IoT • Full Stack Development
+          </p>
+
+          {/* Links */}
+          <div className="mt-6 flex justify-center gap-4">
+
+            <a
+              href="https://github.com/HridaySaikia"
+              target="_blank"
+              className="rounded-lg border px-4 py-2 text-sm"
+              style={{ borderColor: "var(--border)" }}
+            >
+              GitHub
+            </a>
+
+            <a
+              href="https://portfolio-full-new.vercel.app"
+              target="_blank"
+              className="rounded-lg border px-4 py-2 text-sm"
+              style={{ borderColor: "var(--border)" }}
+            >
+              Portfolio
+            </a>
+
+          </div>
+        </div>
+      </section>
+
       <footer
         className="border-t py-8 text-center text-sm"
         style={{
@@ -225,6 +293,30 @@ export default function AboutPage() {
         }}
       >
         © {new Date().getFullYear()} Smart Plant Monitoring Platform
+
+        <div className="mt-2">
+          Developed by <span className="font-medium">Hridayananda Saikia</span>
+        </div>
+
+        <div className="mt-3 flex justify-center gap-6 text-sm">
+
+          <a
+            href="https://github.com/HridaySaikia"
+            target="_blank"
+            className="hover:underline"
+          >
+            GitHub
+          </a>
+
+          <a
+            href="https://portfolio-full-new.vercel.app"
+            target="_blank"
+            className="hover:underline"
+          >
+            Portfolio
+          </a>
+
+        </div>
       </footer>
     </main>
   );
