@@ -240,11 +240,13 @@ export default function AboutPage() {
         </div>
 
         <div
-          className="mx-auto mt-10 grid max-w-5xl gap-6 rounded-[28px] border p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]"
+          className="mx-auto mt-10 max-w-3xl rounded-[32px] border p-8 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.01]"
           style={{
             borderColor: "var(--border)",
-            background: "var(--card)",
-            boxShadow: "var(--shadow-soft)",
+            background:
+              "linear-gradient(145deg, var(--card), var(--bg-secondary))",
+            boxShadow:
+              "0 20px 60px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           {/* Left side */}
