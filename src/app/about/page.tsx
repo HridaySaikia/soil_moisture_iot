@@ -217,57 +217,164 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-16 text-center">
-        <h2
-          className="text-2xl font-semibold"
-          style={{ color: "var(--text-primary)" }}
-        >
-          Built & Developed By
-        </h2>
-
-        <div
-          className="mx-auto mt-8 max-w-md rounded-3xl border p-8"
-          style={{
-            borderColor: "var(--border)",
-            background: "var(--bg-secondary)",
-            boxShadow: "var(--shadow-soft)",
-          }}
-        >
-          <div className="mb-4 text-4xl">👨‍💻</div>
-
-          <h3 className="text-xl font-semibold">
-            Hridayananda Saikia
-          </h3>
-
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <div className="text-center">
           <p
-            className="mt-1 text-sm"
+            className="text-sm uppercase tracking-[0.25em]"
+            style={{ color: "var(--accent)" }}
+          >
+            Developer
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+            Crafted with passion for IoT and modern web systems
+          </h2>
+          <p
+            className="mx-auto mt-4 max-w-2xl text-sm sm:text-base"
             style={{ color: "var(--text-secondary)" }}
           >
-            B.Tech Electronics & Communication Engineering
+            A full-stack smart plant monitoring platform designed and developed for
+            real-time sensor analytics, cloud connectivity, and modern dashboard
+            experiences.
           </p>
+        </div>
 
-          <p
-            className="text-sm"
-            style={{ color: "var(--text-secondary)" }}
+        <div className="mx-auto mt-10 max-w-3xl">
+          <div
+            className="rounded-[32px] p-[1px]"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(34,197,94,0.35), rgba(59,130,246,0.28), rgba(168,85,247,0.28))",
+            }}
           >
-            Tezpur University
-          </p>
+            <div
+              className="rounded-[31px] border px-6 py-8 sm:px-10 sm:py-10"
+              style={{
+                borderColor: "rgba(255,255,255,0.06)",
+                background:
+                  "linear-gradient(180deg, rgba(8,15,32,0.92), rgba(5,10,24,0.96))",
+                boxShadow:
+                  "0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+                backdropFilter: "blur(14px)",
+              }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div
+                  className="flex h-20 w-20 items-center justify-center rounded-full text-2xl font-semibold"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(34,197,94,0.2), rgba(59,130,246,0.2))",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  HS
+                </div>
 
-          <p
-            className="mt-3 text-sm"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Embedded Systems • IoT • Full Stack Development
-          </p>
+                <h3 className="mt-5 text-2xl font-semibold sm:text-3xl">
+                  Hridayananda Saikia
+                </h3>
 
-          {/* Links */}
-          <div className="mt-6 flex justify-center gap-4">
+                <p
+                  className="mt-2 text-sm sm:text-base"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  B.Tech Electronics & Communication Engineering
+                </p>
+                <p
+                  className="text-sm sm:text-base"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  Tezpur University
+                </p>
 
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                  {["Embedded Systems", "IoT", "Full Stack", "Cloud Dashboard"].map(
+                    (item) => (
+                      <span
+                        key={item}
+                        className="rounded-full px-4 py-2 text-xs sm:text-sm"
+                        style={{
+                          background: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        {item}
+                      </span>
+                    )
+                  )}
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="https://github.com/hridaysaikia"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-xl px-5 py-3 text-sm font-medium transition"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(59,130,246,0.95), rgba(37,99,235,0.95))",
+                      color: "white",
+                      boxShadow: "0 10px 24px rgba(37,99,235,0.25)",
+                    }}
+                  >
+                    View GitHub
+                  </a>
+
+                  <a
+                    href="https://portfolio-full-new.vercel.app"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-xl px-5 py-3 text-sm font-medium transition"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "var(--text-primary)",
+                    }}
+                  >
+                    Visit Portfolio
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer
+        className="border-t"
+        style={{
+          borderColor: "var(--border)",
+          background: "rgba(255,255,255,0.02)",
+        }}
+      >
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-center sm:flex-row sm:text-left">
+          <div>
+            <p
+              className="text-sm font-medium"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Smart Plant Monitoring Platform
+            </p>
+            <p
+              className="mt-1 text-xs sm:text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              Developed by Hridayananda Saikia
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://github.com/HridaySaikia"
+              href="https://github.com/YOUR_GITHUB_USERNAME"
               target="_blank"
-              className="rounded-lg border px-4 py-2 text-sm"
-              style={{ borderColor: "var(--border)" }}
+              rel="noreferrer"
+              className="rounded-full px-4 py-2 text-sm"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                color: "var(--text-primary)",
+              }}
             >
               GitHub
             </a>
@@ -275,47 +382,17 @@ export default function AboutPage() {
             <a
               href="https://portfolio-full-new.vercel.app"
               target="_blank"
-              className="rounded-lg border px-4 py-2 text-sm"
-              style={{ borderColor: "var(--border)" }}
+              rel="noreferrer"
+              className="rounded-full px-4 py-2 text-sm"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                color: "var(--text-primary)",
+              }}
             >
               Portfolio
             </a>
-
           </div>
-        </div>
-      </section>
-
-      <footer
-        className="border-t py-8 text-center text-sm"
-        style={{
-          borderColor: "var(--border)",
-          color: "var(--text-secondary)",
-        }}
-      >
-        © {new Date().getFullYear()} Smart Plant Monitoring Platform
-
-        <div className="mt-2">
-          Developed by <span className="font-medium">Hridayananda Saikia</span>
-        </div>
-
-        <div className="mt-3 flex justify-center gap-6 text-sm">
-
-          <a
-            href="https://github.com/HridaySaikia"
-            target="_blank"
-            className="hover:underline"
-          >
-            GitHub
-          </a>
-
-          <a
-            href="https://portfolio-full-new.vercel.app"
-            target="_blank"
-            className="hover:underline"
-          >
-            Portfolio
-          </a>
-
         </div>
       </footer>
     </main>
