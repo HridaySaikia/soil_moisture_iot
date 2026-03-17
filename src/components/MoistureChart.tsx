@@ -1,29 +1,54 @@
 "use client";
 
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 
-export default function MoistureChart({
-  data,
+type ChartPoint = {
+  time: string;
+  moisture: number;
+  fullTime?: string;
+};
+
+function CustomTooltip({
+  active,
+  payload,
 }: {
-  data: { time: string; moisture: number }[];
+  active?: boolean;
+  payload?: Array<{ payload: ChartPoint }>;
 }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const point = payload[0].payload;
+
   return (
-    <ResponsiveContainer width="100%" height={320} minWidth={0} minHeight={100}>
+    <div
+      className="rounded-xl border px-3 py-2 text-sm"
+      style={{
+        backgroundColor: "var(--card)",
+        borderColor: "var(--border)",
+        color: "var(--text-primary)",
+        boxShadow: "var(--shadow-soft)",
+      }}
+    >
+      <p style={{ color: "var(--text-secondary)" }}>
+        {point.fullTime ?? point.time}
+      </p>
+      <p className="mt-1 font-medium">{point.moisture}% moisture</p>
+    </div>
+  );
+}
+
+export default function MoistureChart({ data }: { data: ChartPoint[] }) {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
-        <defs>
-          <linearGradient id="moistureGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#22c55e" />
-            <stop offset="100%" stopColor="#0ea5e9" />
-          </linearGradient>
-        </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
 
         <XAxis
@@ -38,24 +63,15 @@ export default function MoistureChart({
           tick={{ fill: "var(--text-secondary)" }}
         />
 
-        <Tooltip
-          contentStyle={{
-            backgroundColor: "var(--card)",
-            border: "1px solid var(--border)",
-            borderRadius: "12px",
-            color: "var(--text-primary)",
-            boxShadow: "var(--shadow-soft)",
-          }}
-          labelStyle={{ color: "var(--text-secondary)" }}
-          itemStyle={{ color: "var(--text-primary)" }}
-        />
+        <Tooltip content={<CustomTooltip />} />
 
         <Line
           type="monotone"
           dataKey="moisture"
-          stroke="#1E90FF"
+          stroke="#3b82f6"
           strokeWidth={3}
           dot={false}
+          activeDot={{ r: 6 }}
         />
       </LineChart>
     </ResponsiveContainer>
