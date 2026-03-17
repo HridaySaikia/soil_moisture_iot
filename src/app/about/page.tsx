@@ -377,7 +377,7 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://github.com/YOUR_GITHUB_USERNAME"
+              href="https://github.com/hridaysaikia"
               target="_blank"
               rel="noreferrer"
               className="rounded-full px-4 py-2 text-sm"
