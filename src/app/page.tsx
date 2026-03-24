@@ -113,24 +113,149 @@ export default function Home() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/dashboard"
-              className="w-full rounded-2xl bg-blue-500 px-6 py-3 font-medium text-white sm:w-auto"
+              className="group inline-flex w-full items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:w-auto"
+              style={{
+                background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+                color: "white",
+                boxShadow: "0 12px 30px rgba(37,99,235,0.22)",
+              }}
             >
               Open Dashboard
+              <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </Link>
 
-            <Link
-              href="/about"
-              className="w-full rounded-2xl border px-6 py-3 sm:w-auto"
-              style={{ borderColor: "var(--border)" }}
+            <a
+              href="#demo"
+              className="group inline-flex w-full items-center justify-center rounded-2xl border px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--card)",
+                color: "var(--text-primary)",
+              }}
+            >
+              Watch Demo
+              <span className="ml-2 transition-transform duration-300 group-hover:translate-y-0.5">
+                ▷
+              </span>
+            </a>
+
+            <a
+              href="#features"
+              className="inline-flex w-full items-center justify-center rounded-2xl border px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:w-auto"
+              style={{
+                borderColor: "var(--border)",
+                background: "transparent",
+                color: "var(--text-primary)",
+              }}
             >
               Learn More
-            </Link>
+            </a>
           </div>
         </div>
       </section>
 
+      <section id="demo" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="text-center">
+          <p
+            className="text-xs uppercase tracking-[0.25em] sm:text-sm"
+            style={{ color: "var(--accent)" }}
+          >
+            Live Demo
+          </p>
+
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+            See the system in action
+          </h2>
+
+          <p
+            className="mx-auto mt-4 max-w-2xl text-sm leading-7 sm:text-base"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            A real demonstration of the ESP32 hardware setup and the cloud dashboard
+            working together in real time.
+          </p>
+        </div>
+
+        <div
+          className="mx-auto mt-10 max-w-5xl rounded-[28px] p-[1px]"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(59,130,246,0.28), rgba(34,197,94,0.22), rgba(168,85,247,0.22))",
+          }}
+        >
+          <div
+            className="overflow-hidden rounded-[27px] border"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--card)",
+              boxShadow: "var(--shadow-soft)",
+            }}
+          >
+            <div
+              className="flex items-center justify-between border-b px-4 py-3"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg-secondary)",
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-red-400" />
+                <span className="h-3 w-3 rounded-full bg-yellow-400" />
+                <span className="h-3 w-3 rounded-full bg-green-400" />
+              </div>
+
+              <p
+                className="text-xs sm:text-sm"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Smart Plant Monitoring Demo
+              </p>
+            </div>
+            <div className="relative">
+              <div className="p-2">
+                <div className="aspect-video w-full overflow-hidden rounded-2xl border"
+                  style={{
+                    borderColor: "var(--border)",
+                    boxShadow: "var(--shadow-soft)",
+                  }}
+                >
+                  <iframe
+                    src="https://www.youtube.com/embed/--2swG9tPsI?rel=0&modestbranding=1&controls=1"
+                    title="Smart Soil Monitoring Demo"
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {["ESP32 Hardware", "Live Dashboard", "Real-Time Data", "IoT Demo"].map(
+            (item) => (
+              <span
+                key={item}
+                className="rounded-full px-4 py-2 text-xs sm:text-sm"
+                style={{
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                {item}
+              </span>
+            )
+          )}
+        </div>
+      </section>
+
       {/* Features */}
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="features" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <h2 className="mb-10 text-center text-2xl font-semibold sm:mb-14 sm:text-3xl">
           Platform Features
         </h2>
