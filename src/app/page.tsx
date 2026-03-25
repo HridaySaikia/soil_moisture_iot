@@ -82,10 +82,6 @@ export default function Home() {
               <UserButton/>
             </Show>
 
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-
             <ThemeToggle />
           </div>
         </div>
