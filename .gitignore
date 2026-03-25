@@ -30,3 +30,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore demo videos
+public/demo.mp4
+public/demo.mov
+public/demo.webm
+
+public/*.mp4
+public/*.mov
+public/*.webm

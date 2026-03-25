@@ -4,12 +4,15 @@ import {
   SignInButton,
   SignUpButton,
   UserButton,
+  
 } from "@clerk/nextjs";
 
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import SignalWavesBackground from "@/components/SignalWavesBackground";
+import { dark } from "@clerk/themes";
+
 
 export default function Home() {
   return (
@@ -45,20 +48,38 @@ export default function Home() {
             </Link>
 
             <Show when="signed-out">
-              <SignInButton mode="modal">
+              <SignInButton
+                mode="modal"
+              >
                 <button
-                  className="rounded-lg border px-4 py-2 text-sm"
-                  style={{ borderColor: "var(--border)" }}
+                  className="rounded-lg border px-4 py-2 text-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                  style={{
+                    borderColor: "var(--border)",
+                    color: "var(--text-primary)",
+                  }}
                 >
                   Sign In
                 </button>
               </SignInButton>
 
-              <SignUpButton mode="modal">
-                <button className="rounded-lg bg-white/10 px-4 py-2 text-sm">
+              <SignUpButton
+                mode="modal"
+              >
+                <button
+                  className="rounded-lg px-4 py-2 text-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                  style={{
+                    background: "var(--card)",
+                    color: "var(--text-primary)",
+                    border: "1px solid var(--border)",
+                  }}
+                >
                   Sign Up
                 </button>
               </SignUpButton>
+            </Show>
+
+            <Show when="signed-in">
+              <UserButton/>
             </Show>
 
             <Show when="signed-in">
