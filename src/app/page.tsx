@@ -252,6 +252,7 @@ export default function Home() {
           </div>
         </div>
 
+
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           {["ESP32 Hardware", "Live Dashboard", "Real-Time Data", "IoT Demo"].map(
             (item) => (
