@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+
   --bg: #f6f8fc;
   --bg-secondary: #eef3f8;
   --card: rgba(255, 255, 255, 0.92);
@@ -56,3 +57,4 @@ body {
 * {
   box-sizing: border-box;
 }
+

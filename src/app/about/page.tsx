@@ -175,6 +175,7 @@ export default function AboutPage() {
             <li>• MongoDB Atlas Cloud Database</li>
             <li>• Vercel Deployment</li>
             <li>• Recharts for data visualization</li>
+            <li>• Clerk Auth</li>
           </ul>
         </div>
 

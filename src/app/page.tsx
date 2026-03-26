@@ -49,7 +49,7 @@ export default function Home() {
 
             <Show when="signed-out">
               <SignInButton
-                mode="modal"
+                mode="redirect"
               >
                 <button
                   className="rounded-lg border px-4 py-2 text-sm transition hover:-translate-y-0.5 hover:shadow-md"
@@ -63,7 +63,7 @@ export default function Home() {
               </SignInButton>
 
               <SignUpButton
-                mode="modal"
+                mode="redirect"
               >
                 <button
                   className="rounded-lg px-4 py-2 text-sm transition hover:-translate-y-0.5 hover:shadow-md"
