@@ -239,7 +239,7 @@ export default function Home() {
                   }}
                 >
                   <iframe
-                    src="https://www.youtube.com/embed/--2swG9tPsI?rel=0&modestbranding=1&controls=1"
+                    src="https://www.youtube.com/embed/8rYQWbHBpos?rel=0&modestbranding=1&controls=1"
                     title="Smart Soil Monitoring Demo"
                     className="h-full w-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
